@@ -83,17 +83,10 @@ const optionsWithIcons = [
   { key: "Маркетплейсы" },
 ];
 
-const selectedDefaultValue = {
-  key: "Выберите категорию",
-};
-
 export const App = () => {
   const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
-  const [label, setLabel] = useState<{ key: string }>(selectedDefaultValue);
   const [category, setCategory] = useState("");
-
-  console.log(label);
 
   const submit = () => {
     setLoading(true);
@@ -128,69 +121,58 @@ export const App = () => {
           <Typography.Text view="primary-medium" color="secondary">
             Стоимость — 299 ₽ в месяц
           </Typography.Text>
-          <PickerButton
-            className={appSt.picker}
-            options={optionsWithIcons}
-            view="secondary"
-            label={label?.key}
-            onChange={(payload) => {
-              setCategory(payload.selected?.key || "");
-              setLabel({ key: `Категория: ${payload.selected?.key}` });
-            }}
-          />
         </div>
-        {label.key !== selectedDefaultValue.key && (
-          <div className={appSt.subscription}>
-            <img src={smile} alt="" width={24} height={24} />
-            <Typography.Text
-              view="primary-medium"
-              className={appSt.subscriptionText}
+
+        <div className={appSt.subscription}>
+          <img src={smile} alt="" width={24} height={24} />
+          <Typography.Text
+            view="primary-medium"
+            className={appSt.subscriptionText}
+          >
+            Подписка стоит 299 ₽, если тратите с карты 20 000 ₽ в месяц. Если
+            тратите меньше — 399 ₽
+          </Typography.Text>
+        </div>
+
+        <>
+          <Gap size={8} />
+
+          <div className={appSt.products}>
+            <Typography.TitleResponsive
+              font="system"
+              tag="h2"
+              weight="bold"
+              view="small"
+              className={appSt.productsTitle}
             >
-              Подписка стоит 299 ₽, если тратите с карты 20 000 ₽ в месяц. Если
-              тратите меньше — 399 ₽
-            </Typography.Text>
-          </div>
-        )}
+              В вашей подписке
+            </Typography.TitleResponsive>
 
-        {label.key !== selectedDefaultValue.key && (
-          <>
-            <Gap size={8} />
+            {products.map((product, index) => (
+              <div className={appSt.product} key={index}>
+                {index === 0 && category && (
+                  <Status
+                    view="contrast"
+                    color="red"
+                    size={24}
+                    uppercase={false}
+                    className={appSt.status}
+                  >
+                    {category}
+                  </Status>
+                )}
+                <div>
+                  <Typography.TitleResponsive
+                    font="system"
+                    view="small"
+                    weight="bold"
+                    tag="h3"
+                    className={appSt.productTitle}
+                  >
+                    {product.title}
+                  </Typography.TitleResponsive>
 
-            <div className={appSt.products}>
-              <Typography.TitleResponsive
-                font="system"
-                tag="h2"
-                weight="bold"
-                view="small"
-                className={appSt.productsTitle}
-              >
-                В вашей подписке
-              </Typography.TitleResponsive>
-
-              {products.map((product, index) => (
-                <div className={appSt.product} key={index}>
-                  {index === 0 && (
-                    <Status
-                      view="contrast"
-                      color="red"
-                      size={24}
-                      uppercase={false}
-                      className={appSt.status}
-                    >
-                      {category}
-                    </Status>
-                  )}
-                  <div>
-                    <Typography.TitleResponsive
-                      font="system"
-                      view="small"
-                      weight="bold"
-                      tag="h3"
-                      className={appSt.productTitle}
-                    >
-                      {product.title}
-                    </Typography.TitleResponsive>
-
+                  {index !== 0 && (
                     <Typography.Text
                       view="secondary-large"
                       tag="p"
@@ -199,36 +181,42 @@ export const App = () => {
                     >
                       {product.text}
                     </Typography.Text>
-                  </div>
-                  <img
-                    src={product.image}
-                    alt=""
-                    width={96}
-                    height={96}
-                    className={appSt.productIcon}
-                  />
+                  )}
+                  {index === 0 && (
+                    <PickerButton
+                      className={appSt.picker}
+                      options={optionsWithIcons}
+                      view="secondary"
+                      size="xs"
+                      label="Выберите категорию"
+                      onChange={(payload) => {
+                        setCategory(payload.selected?.key || "");
+                      }}
+                    />
+                  )}
                 </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-      {label.key !== selectedDefaultValue.key && (
-        <>
-          <Gap size={72} />
-
-          <div className={appSt.bottomBtn}>
-            <ButtonMobile
-              loading={loading}
-              block
-              view="primary"
-              onClick={submit}
-            >
-              Подключить
-            </ButtonMobile>
+                <img
+                  src={product.image}
+                  alt=""
+                  width={96}
+                  height={96}
+                  className={appSt.productIcon}
+                />
+              </div>
+            ))}
           </div>
         </>
-      )}
+      </div>
+
+      <>
+        <Gap size={72} />
+
+        <div className={appSt.bottomBtn}>
+          <ButtonMobile loading={loading} block view="primary" onClick={submit}>
+            Подключить
+          </ButtonMobile>
+        </div>
+      </>
     </>
   );
 };

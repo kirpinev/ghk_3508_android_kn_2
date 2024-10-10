@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 
 const container = style({
   display: "flex",
@@ -79,7 +79,12 @@ const productText = style({
 });
 
 const picker = style({
-  margin: "1rem auto 0 auto",
+  marginTop: "1rem",
+});
+
+globalStyle(`${picker} > div > button`, {
+  backgroundColor: "white",
+  border: "1px solid var(--button-primary-mobile-base-bg-color)",
 });
 
 const status = style({
