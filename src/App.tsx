@@ -1,7 +1,7 @@
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 
 import { Typography } from "@alfalab/core-components/typography";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import smart from "./assets/smart.png";
 import smile from "./assets/smile.png";
 import drums from "./assets/drums.png";
@@ -19,6 +19,7 @@ import { ThxLayout } from "./thx/ThxLayout";
 import { Gap } from "@alfalab/core-components/gap";
 import { PickerButton } from "@alfalab/core-components/picker-button";
 import { Status } from "@alfalab/core-components/status";
+import { Link } from "@alfalab/core-components/link";
 
 interface Product {
   title: string;
@@ -83,10 +84,22 @@ const optionsWithIcons = [
   { key: "Маркетплейсы" },
 ];
 
+const setStatus = (text: string) => {
+  switch (text) {
+    case "Техника":
+      return "Технику";
+    case "Одежда":
+      return "Одежду";
+    default:
+      return text;
+  }
+};
+
 export const App = () => {
   const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [category, setCategory] = useState("");
+  const buttonRef = useRef<HTMLInputElement>(null);
 
   const submit = () => {
     setLoading(true);
@@ -100,6 +113,12 @@ export const App = () => {
       setLoading(false);
     });
   };
+
+  useEffect(() => {
+    if (category) {
+      buttonRef.current!.style.display = "none";
+    }
+  }, [category]);
 
   if (thxShow) {
     return <ThxLayout />;
@@ -172,10 +191,31 @@ export const App = () => {
                     {product.title}
                   </Typography.TitleResponsive>
 
+                  {index === 0 && category && (
+                    <>
+                      <Typography.Text
+                        view="secondary-large"
+                        tag="span"
+                        color="secondary"
+                        className={appSt.productText}
+                      >
+                        5% на {setStatus(category)}
+                      </Typography.Text>
+                      <Link
+                        className={appSt.buttonChange}
+                        onClick={() =>
+                          buttonRef.current?.querySelector("button")?.click()
+                        }
+                        view="secondary"
+                      >
+                        Изменить
+                      </Link>
+                    </>
+                  )}
                   {index !== 0 && (
                     <Typography.Text
                       view="secondary-large"
-                      tag="p"
+                      tag="span"
                       color="secondary"
                       className={appSt.productText}
                     >
@@ -184,6 +224,7 @@ export const App = () => {
                   )}
                   {index === 0 && (
                     <PickerButton
+                      ref={buttonRef}
                       className={appSt.picker}
                       options={optionsWithIcons}
                       view="secondary"
@@ -195,6 +236,7 @@ export const App = () => {
                     />
                   )}
                 </div>
+
                 <img
                   src={product.image}
                   alt=""

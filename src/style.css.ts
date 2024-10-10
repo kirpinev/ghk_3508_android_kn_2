@@ -94,6 +94,11 @@ const status = style({
   zIndex: 1,
 });
 
+const buttonChange = style({
+  fontSize: "13px",
+  marginLeft: "0.5rem",
+});
+
 export const appSt = {
   bottomBtn,
   container,
@@ -108,4 +113,5 @@ export const appSt = {
   productText,
   picker,
   status,
+  buttonChange,
 };
