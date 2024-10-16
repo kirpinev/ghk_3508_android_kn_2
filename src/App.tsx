@@ -257,13 +257,6 @@ export const App = () => {
           <ButtonMobile loading={loading} block view="primary" onClick={submit}>
             Подключить
           </ButtonMobile>
-          <ButtonMobile
-              block
-              view="primary"
-              href="alfabank://multistep-route?fromModule=FORM&stepNumber=0&alias=alfa-subscription-alias"
-          >
-            Хорошо
-          </ButtonMobile>
         </div>
       </>
     </>
