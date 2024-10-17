@@ -37,7 +37,7 @@ export const ThxLayout = () => {
           view="primary"
           href="https://alfa.me/1lM1V9"
         >
-          Вернуться на главный
+          Подробнее
         </ButtonMobile>
       </div>
     </>
