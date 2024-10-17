@@ -21,11 +21,13 @@ export const ThxLayout = () => {
           defaultMargins
           weight="bold"
         >
-          Только тссс
+          Спасибо за участие
         </Typography.TitleResponsive>
+        <Typography.Text tag="p" view="primary-medium">
+          Вы поучаствовали в очень важном исследовании, которое поможет улучшить продукт. Вы – наш герой!
+        </Typography.Text>
         <Typography.Text tag="p" view="primary-medium" defaultMargins={false}>
-          Вы поучаствовали в очень важном исследовании, которое поможет улучшить
-          продукт. Вы – наш герой!
+          Пока вы можете ознакомиться со стандартными условиями подписки.
         </Typography.Text>
       </div>
 
@@ -33,7 +35,7 @@ export const ThxLayout = () => {
         <ButtonMobile
           block
           view="primary"
-          href="alfabank:///dashboard/alfa_check_cards"
+          href="https://alfa.me/1lM1V9"
         >
           Вернуться на главный
         </ButtonMobile>
