@@ -24,7 +24,8 @@ export const ThxLayout = () => {
           Спасибо за участие
         </Typography.TitleResponsive>
         <Typography.Text tag="p" view="primary-medium">
-          Вы поучаствовали в очень важном исследовании, которое поможет улучшить продукт. Вы – наш герой!
+          Вы поучаствовали в очень важном исследовании, которое поможет улучшить
+          продукт. Вы – наш герой!
         </Typography.Text>
         <Typography.Text tag="p" view="primary-medium" defaultMargins={false}>
           Пока вы можете ознакомиться со стандартными условиями подписки.
@@ -35,7 +36,7 @@ export const ThxLayout = () => {
         <ButtonMobile
           block
           view="primary"
-          href="https://alfa.me/1lM1V9"
+          href="alfabank://multistep-route?fromModule=FORM&alias=alfa-subscription-alias&version=2"
         >
           Подробнее
         </ButtonMobile>

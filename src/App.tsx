@@ -76,7 +76,6 @@ const products: Array<Product> = [
 ];
 
 const optionsWithIcons = [
-  { key: "Продукты" },
   { key: "Техника" },
   { key: "Одежда" },
   { key: "Авто" },
@@ -96,22 +95,13 @@ const setStatus = (text: string) => {
 };
 
 export const App = () => {
-  const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [category, setCategory] = useState("");
   const buttonRef = useRef<HTMLInputElement>(null);
 
   const submit = () => {
-    setLoading(true);
-    // sendDataToGA({
-    //   sub_choice: selectedOption,
-    //   sub_hidden: expanded ? "Yes" : "No",
-    // });
-    Promise.resolve().then(() => {
-      LS.setItem(LSKeys.ShowThx, true);
-      setThx(true);
-      setLoading(false);
-    });
+    LS.setItem(LSKeys.ShowThx, true);
+    setThx(true);
   };
 
   useEffect(() => {
@@ -254,7 +244,7 @@ export const App = () => {
         <Gap size={72} />
 
         <div className={appSt.bottomBtn}>
-          <ButtonMobile loading={loading} block view="primary" onClick={submit}>
+          <ButtonMobile block view="primary" onClick={submit}>
             Подключить
           </ButtonMobile>
         </div>
