@@ -20,6 +20,7 @@ import { Gap } from "@alfalab/core-components/gap";
 import { PickerButton } from "@alfalab/core-components/picker-button";
 import { Status } from "@alfalab/core-components/status";
 import { Link } from "@alfalab/core-components/link";
+import { sendDataToGA } from "./utils/events.ts";
 
 interface Product {
   title: string;
@@ -95,13 +96,18 @@ const setStatus = (text: string) => {
 };
 
 export const App = () => {
+  const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [category, setCategory] = useState("");
   const buttonRef = useRef<HTMLInputElement>(null);
 
   const submit = () => {
-    LS.setItem(LSKeys.ShowThx, true);
-    setThx(true);
+    setLoading(true);
+    sendDataToGA({ cashback_category: category || "0" }).then(() => {
+      LS.setItem(LSKeys.ShowThx, true);
+      setThx(true);
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -244,7 +250,7 @@ export const App = () => {
         <Gap size={72} />
 
         <div className={appSt.bottomBtn}>
-          <ButtonMobile block view="primary" onClick={submit}>
+          <ButtonMobile loading={loading} block view="primary" onClick={submit}>
             Подключить
           </ButtonMobile>
         </div>
