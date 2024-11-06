@@ -101,7 +101,14 @@ export const App = () => {
   const [category, setCategory] = useState("");
   const buttonRef = useRef<HTMLInputElement>(null);
 
+  const clickSubmit = () => {
+    window.gtag("event", "connect_click", {
+      variant_name: "ghk_3508_android_kn_2",
+    });
+  };
+
   const submit = () => {
+    clickSubmit();
     setLoading(true);
     sendDataToGA({ cashback_category: category || "0" }).then(() => {
       LS.setItem(LSKeys.ShowThx, true);
